@@ -1,8 +1,5 @@
 {
   "name": "pganalytics",
-  "private": true,
-  "workspaces": [
-    "client",
-    "server"
-  ]
+  "workspaces": ["server"],
+  "private": true
 }
