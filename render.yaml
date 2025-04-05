@@ -3,11 +3,10 @@ services:
     name: pganalytics-backend
     runtime: node
     buildCommand: |
-      echo "🔄 Installing backend dependencies..."
+      echo "Installing dependencies..."
       cd server && npm install
-      echo "🛠️ Building frontend..."
-      cd ../client && npm install && npm run build
-      echo "✅ Build completed!"
+      cd ../client && npm install
+      npm run build --prefix ../client
     startCommand: cd server && node server.js
     envVars:
       - key: NODE_ENV
@@ -16,14 +15,4 @@ services:
         value: 5000
       - key: JWT_SECRET
         generateValue: true
-      - key: MONGODB_URI
-        fromDatabase:
-          name: pganalytics-db
-          property: connectionString
-    healthCheckPath: /api/test
-    plan: free
-
-databases:
-  - name: pganalytics-db
-    databaseName: pganalytics
     plan: free
