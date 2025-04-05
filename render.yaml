@@ -1,0 +1,36 @@
+# render.yaml - Full Infrastructure as Code configuration
+services:
+  - type: web
+    name: pganalytics-backend
+    runtime: node
+    buildCommand: |
+      echo "Installing dependencies..."
+      npm install
+      cd ../client
+      npm install
+      npm run build
+    startCommand: node server.js
+    env: node
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: JWT_SECRET
+        generateValue: true
+      - key: MONGODB_URI
+        fromDatabase:
+          name: pganalytics-db
+          property: connectionString
+    healthCheckPath: /api/test
+    autoDeploy: true
+    plan: free
+    regions:
+      - oregon # Change to your preferred region
+
+databases:
+  - name: pganalytics-db
+    databaseName: pganalytics
+    user: pganalytics_admin
+    plan: free
+    region: oregon # Must match service region
