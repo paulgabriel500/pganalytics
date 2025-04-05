@@ -1,18 +1,5 @@
-# Node
 node_modules/
-npm-debug.log
-
-# Environment
 .env
-.env.local
-
-# Build
-client/build/
-dist/
-
-# IDE
-.vscode/
-.idea/
-
-# OS
 .DS_Store
+client/build/
+server/.env
